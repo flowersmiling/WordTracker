@@ -65,7 +65,7 @@ public class BSTree<E> implements BSTreeADT
 	private int findHeight(BSTreeNode<E> aNode) 
 	{
 	    if (aNode == null) {
-	        return -1;
+	        return 0;
 	    }
 
 	    int lefth = findHeight(aNode.getLeft());
@@ -260,7 +260,7 @@ public class BSTree<E> implements BSTreeADT
 		{
 			if (!hasNext())
 	            throw new NoSuchElementException();
-			 return (E) preorderStack.pollLast();//the tail of this deque, or null if this deque is empty
+			 return (E) preorderStack.pollLast().getData();//the tail of this deque, or null if this deque is empty
 		}
 	}
 	
@@ -298,7 +298,7 @@ public class BSTree<E> implements BSTreeADT
 		{
 			if (!hasNext())
 	            throw new NoSuchElementException();
-			return (E) inorderStack.pollLast();
+			return (E) inorderStack.pollLast().getData();
 		}
 	}
 	
@@ -342,7 +342,7 @@ public class BSTree<E> implements BSTreeADT
 		{
 			if (!hasNext())
 	            throw new NoSuchElementException();
-			return (E) postorderStack.pollLast();
+			return (E) postorderStack.pollLast().getData();
 		}
 	}
 	
