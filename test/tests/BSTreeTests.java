@@ -75,6 +75,44 @@ class BSTreeTests<E>
 		} catch (TreeException e) {
 			e.printStackTrace();
 		}
+		
+		//Test add the same element to the BSTree
+		try {
+			this.bst.add(13);
+		}catch(IllegalArgumentException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Tests to search an elements in BSTree
+	 */
+	@Test
+	void testsearch() 
+	{
+		this.bst.add(8);
+		this.bst.add(3);
+		this.bst.add(10);
+		this.bst.add(1);
+		this.bst.add(6);
+		this.bst.add(14);
+		this.bst.add(4);
+		this.bst.add(7);
+		this.bst.add(13);
+		
+		// Test the BSTree is not empty.
+		assertFalse(this.bst.isEmpty());
+		
+		//Test search an element in BSTree
+		try {
+			BSTreeNode<E> result = this.bst.search(6);
+			assertEquals(6,result.getData());
+			
+			BSTreeNode<E> noresult = this.bst.search(0);
+			assertNull(noresult);
+		} catch (TreeException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
