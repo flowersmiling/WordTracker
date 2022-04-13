@@ -3,6 +3,7 @@ package sait.wordtracker.utility;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.NoSuchElementException;
+import java.util.Queue;
 
 import sait.wordtracker.contracts.BSTreeADT;
 import sait.wordtracker.contracts.Iterator;
@@ -52,16 +53,18 @@ public class BSTree<E> implements BSTreeADT
 	    }
 	    else{
 	    	BSTreeNode<E> node = root;
-	        return findHeight(node);
+	        //return findHeight(node);	//Recursive Solution lead to java.lang.StackOverflowError
+	    	return calcHeight(root);
 	    }
 	}
 	
 	/** 
-	* calculate the height of the BSTree 
+	* calculate the height of the BSTree (Recursive Solution)
 	* @param aNode - BSTreeNode
-	* @return - the height of the node
+	* @return - the height of the BSTree
 	*/
 	
+	/* Attention: Recursive Solution lead to java.lang.StackOverflowError */
 	private int findHeight(BSTreeNode<E> aNode) 
 	{
 	    if (aNode == null) {
@@ -77,6 +80,56 @@ public class BSTree<E> implements BSTreeADT
 	        return righth + 1;
 	    }
 	}
+	
+	
+	/** 
+	* calculate the height of the BSTree (Iterative Solution) 
+	* @param root - BSTreeNode
+	* @return - the height of the BSTree
+	*/
+	
+	/* Iterative Solution */
+	private int calcHeight(BSTreeNode<E> root)
+    {
+        // empty tree has a height of 0
+        if (root == null) {
+            return 0;
+        }
+ 
+        // create an empty queue and enqueue the root node
+        Queue<BSTreeNode<E>> queue = new ArrayDeque<BSTreeNode<E>>();
+        queue.add(root);
+ 
+        BSTreeNode<E> front = null;
+        int height = 0;
+ 
+        // loop till queue is empty
+        while (!queue.isEmpty())
+        {
+            // calculate the total number of nodes at the current level
+            int size = queue.size();
+ 
+            // process each node of the current level and enqueue their
+            // non-empty left and right child
+            while (size-- > 0)
+            {
+                front = queue.poll();
+ 
+                if (front.getLeft() != null) {
+                    queue.add(front.getLeft());
+                }
+ 
+                if (front.getRight() != null) {
+                    queue.add(front.getRight());
+                }
+            }
+ 
+            // increment height by 1 for each level
+            height++;
+        }
+ 
+        return height;
+    }
 
 	@Override
 	public int size() 
@@ -214,7 +267,8 @@ public class BSTree<E> implements BSTreeADT
 		    }
 		    else 
 		    {
-		      throw new IllegalArgumentException("BST already contains a same object!");
+		    	//when the two object are equal
+		    	return false;
 		    }
 		  }
 	}
