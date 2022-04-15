@@ -32,14 +32,17 @@ public class ReadWord
 		
 		while( input.hasNextLine() ) 
 		{
-			lineInfor = input.nextLine();
-			//remove all punctuation in the line of words
-			lineInfor = lineInfor.replaceAll("\\p{Punct}", "");
-			//replace more than one space or tab with one space, split the string to array with one space
-			lineInfor = lineInfor.replaceAll("\\s+", " ");
-			wordsArray = lineInfor.split(" ");
-			
-			constructBST(wordsArray, filepath, line);
+			lineInfor = input.nextLine().trim();
+			//ignore the blank row
+			if(lineInfor != "") {
+				//remove all punctuation in the line of words
+				lineInfor = lineInfor.replaceAll("\\p{Punct}", "");
+				//replace more than one space or tab with one space, split the string to array with one space
+				lineInfor = lineInfor.replaceAll("\\s+", " ");
+				wordsArray = lineInfor.split(" ");
+				
+				constructBST(wordsArray, filepath, line);
+			}
 			
 			line++;
 		}
@@ -60,17 +63,22 @@ public class ReadWord
 //		}
 		
 		Iterator<Object> it = wordsBST.inorderIterator();
+		int wordcount=0;
 		
-		for(int i=0;i < 2000; i++) 
-		{
-			Word w = (Word) it.next();
-			System.out.println(w.getWord()+" | "+w.getLineNumber()+" | "+w.getOccurtimes()+" | "+w.getFilename());
-		}
-		
-//		while(it.hasNext()) {
+//		for(int i=0;i < 1000; i++) 
+//		{
 //			Word w = (Word) it.next();
+//			wordcount = wordcount+w.getOccurtimes();
 //			System.out.println(w.getWord()+" | "+w.getLineNumber()+" | "+w.getOccurtimes()+" | "+w.getFilename());
+//			System.out.println("WordCount "+wordcount);
 //		}
+		
+		while(it.hasNext()) {
+			Word w = (Word) it.next();
+			wordcount = wordcount+w.getOccurtimes();
+			System.out.println(w.getWord()+" | "+w.getLineNumber()+" | "+w.getOccurtimes()+" | "+w.getFilename());
+			System.out.println("WordCount |"+wordcount);
+		}
 		
 		//--------------------------test end----------------------------//
 
