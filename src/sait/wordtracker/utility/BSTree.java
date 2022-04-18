@@ -1,5 +1,6 @@
 package sait.wordtracker.utility;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.NoSuchElementException;
@@ -275,8 +276,13 @@ public class BSTree<E> implements BSTreeADT
 	
 	/*---------------------INNER CLASS(implement iterator)------------------*/
 	
-	private class BSTPreorderIterator implements Iterator<E>
+	private class BSTPreorderIterator implements Iterator<E>,Serializable 
 	{
+		/**
+		 *The version number for BSTPreorderIterator class when it is serialized
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		//Not using a java.util.Stack cause of STACK OVERFLOW!
 		Deque<BSTreeNode<E>> stack = new ArrayDeque<>();
 		Deque<BSTreeNode<E>> preorderStack = new ArrayDeque<>();
@@ -318,8 +324,13 @@ public class BSTree<E> implements BSTreeADT
 		}
 	}
 	
-	private class BSTInorderIterator implements Iterator<E>
+	private class BSTInorderIterator implements Iterator<E>,Serializable
 	{
+		/**
+		 *The version number for BSTInorderIterator class when it is serialized 
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		//Not using a java.util.Stack cause of STACK OVERFLOW!
 		Deque<BSTreeNode<E>> stack = new ArrayDeque<>();
 		Deque<BSTreeNode<E>> inorderStack = new ArrayDeque<>();
@@ -356,8 +367,13 @@ public class BSTree<E> implements BSTreeADT
 		}
 	}
 	
-	private class BSTPostorderIterator implements Iterator<E>
+	private class BSTPostorderIterator implements Iterator<E>,Serializable
 	{
+		/**
+		 *The version number for BSTPostorderIterator class when it is serialized  
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		//Not using a java.util.Stack cause of STACK OVERFLOW!
 		Deque<BSTreeNode<E>> stack = new ArrayDeque<>();
 		Deque<BSTreeNode<E>> postorderStack = new ArrayDeque<>();

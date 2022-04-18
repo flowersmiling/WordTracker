@@ -1,12 +1,17 @@
 package sait.wordtracker.models;
 
+import java.io.Serializable;
 
 /**
  * BST Nodes model
  * @param <E> - data object that the node hold
  */
-public class BSTreeNode<E> 
+public class BSTreeNode<E> implements Serializable
 {
+	/**
+	 *TODO 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 *data object 
 	 */
