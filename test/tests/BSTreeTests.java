@@ -13,16 +13,32 @@ import sait.wordtracker.models.BSTreeNode;
 import sait.wordtracker.utility.BSTree;
 import sait.wordtracker.utility.TreeException;
 
+/**
+ * BSTree Test class
+ */
 class BSTreeTests<E> 
 {
+	/**
+	 *create a BSTree object 
+	 */
 	private BSTree<E> bst;
 
+	/** 
+	* Test setUp method 
+	* @throws Exception - TreeException
+	*/
+	
 	@BeforeEach
 	void setUp() throws Exception 
 	{
 		this.bst = new BSTree<E>();
 	}
 
+	/** 
+	* Test tearDown method 
+	* @throws Exception - TreeException
+	*/
+	
 	@AfterEach
 	void tearDown() throws Exception {
 		this.bst.clear();

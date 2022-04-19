@@ -6,8 +6,22 @@ import java.util.Scanner;
 
 import sait.wordtracker.utility.TreeException;
 
+/**
+ *WordTracker that reads text files and collects and stores all the unique words it finds in those files.
+ *The BST will be able to store information from multiple text files. It will also keep track of each 
+ *occurrence of a word in a file and the line on which it was found in that file.
+ *The program will also produce output, specified by the user at command line, 
+ *to generate reports using a variety of iterators built into the BST.
+ */
 public class WordTracker {
 
+	/** 
+	* the main entry of the program 
+	* @param args - arguments 
+	* @throws TreeException - when the tree is empty
+	* @throws IOException - produced by failed orinterrupted I/O operations
+	*/
+	
 	public static void main(String[] args) throws TreeException, IOException 
 	{
 		char printtype = ' ';

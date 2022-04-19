@@ -10,6 +10,12 @@ import sait.wordtracker.contracts.BSTreeADT;
 import sait.wordtracker.contracts.Iterator;
 import sait.wordtracker.models.BSTreeNode;
 
+/**
+ * BSTree object
+ */
+/**
+ * TODO
+ */
 public class BSTree<E> implements BSTreeADT
 {
 	/**
@@ -17,13 +23,34 @@ public class BSTree<E> implements BSTreeADT
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 *the root Node of the BSTree object 
+	 */
 	private BSTreeNode<E> root;
+	/**
+	 *the height(depth) of the BSTree object 
+	 */
 	private int height;
+	/**
+	 *the total number of nodes
+	 */
 	private int size;
+	/**
+	 *the Iterator implements inorder tree traversal 
+	 */
 	private BSTree<E>.BSTInorderIterator inorderIterator;
+	/**
+	 *the Iterator implements preorder tree traversal 
+	 */
 	private BSTree<E>.BSTPreorderIterator preorderIterator;
+	/**
+	 *the Iterator implements postorder tree traversal
+	 */
 	private BSTree<E>.BSTPostorderIterator postorderIterator;
 	
+	/**
+	 * BSTree constructor
+	 */
 	public BSTree()
 	{
 		root = null;
@@ -31,6 +58,10 @@ public class BSTree<E> implements BSTreeADT
 		this.size = 0;
 	}
 	
+	/**
+	 * BSTree constructor with an element
+	 * @param value - the element
+	 */
 	public BSTree(E value) 
 	{
 		root = new BSTreeNode<E>(value);
@@ -276,17 +307,31 @@ public class BSTree<E> implements BSTreeADT
 	
 	/*---------------------INNER CLASS(implement iterator)------------------*/
 	
+	/**
+	 * inner class implements the preorder tree traversal Iterator
+	 * for serializing the BSTree object it must implement the Serializable interface
+	 */
 	private class BSTPreorderIterator implements Iterator<E>,Serializable 
 	{
 		/**
 		 *The version number for BSTPreorderIterator class when it is serialized
 		 */
 		private static final long serialVersionUID = 1L;
-		
-		//Not using a java.util.Stack cause of STACK OVERFLOW!
+		/**
+		 *create a double ended queue to traverse the Binary Search Tree.
+		 * Not using a java.util.Stack cause of STACK OVERFLOW!!!
+		 */
 		Deque<BSTreeNode<E>> stack = new ArrayDeque<>();
+		/**
+		 *create a double ended queue to hold the nodes of the tree by preorder tree traversal order.
+		 *Deque supports element insertion and removal at both ends and no fixed limits on the number of elements they may contain.
+		 */
 		Deque<BSTreeNode<E>> preorderStack = new ArrayDeque<>();
 		
+		/**
+		 * BSTPreorderIterator constructor
+		 * @param root - root node
+		 */
 		public BSTPreorderIterator(BSTreeNode<E> root) 
 		{
 			if ( root != null ) 
@@ -296,7 +341,7 @@ public class BSTree<E> implements BSTreeADT
 			    while (!stack.isEmpty()) 
 			    {
 			      root = stack.poll();//dequeue
-			      preorderStack.push(root);
+			      preorderStack.push(root);//hold the node with double ended queue
 			      if (root.getRight() != null) //PreOrder Traversal - rootNode:Left:Right (nLR)
 			      {
 			        stack.push(root.getRight());
@@ -324,6 +369,10 @@ public class BSTree<E> implements BSTreeADT
 		}
 	}
 	
+	/**
+	 * inner class implements the inorder tree traversal Iterator
+	 * for serializing the BSTree object it must implement the Serializable interface
+	 */
 	private class BSTInorderIterator implements Iterator<E>,Serializable
 	{
 		/**
@@ -331,10 +380,21 @@ public class BSTree<E> implements BSTreeADT
 		 */
 		private static final long serialVersionUID = 1L;
 		
-		//Not using a java.util.Stack cause of STACK OVERFLOW!
+		/**
+		 *create a double ended queue to traverse the Binary Search Tree.
+		 * Not using a java.util.Stack cause of STACK OVERFLOW!!! 
+		 */
 		Deque<BSTreeNode<E>> stack = new ArrayDeque<>();
+		/**
+		 *create a double ended queue to hold the nodes of the tree by inorder tree traversal order.
+		 *Deque supports element insertion and removal at both ends and no fixed limits on the number of elements they may contain. 
+		 */
 		Deque<BSTreeNode<E>> inorderStack = new ArrayDeque<>();
 	 
+		/**
+		 * BSTInorderIterator constructor
+		 * @param root - root node
+		 */
 		public BSTInorderIterator(BSTreeNode<E> root) 
 		{
 			while (!stack.isEmpty() || root != null) 
@@ -346,7 +406,7 @@ public class BSTree<E> implements BSTreeADT
 			  } else 
 			  {
 			    root = stack.pop();
-			    inorderStack.push(root);
+			    inorderStack.push(root);//hold the node with double ended queue
 			    root = root.getRight();
 			  }
 			}
@@ -367,17 +427,32 @@ public class BSTree<E> implements BSTreeADT
 		}
 	}
 	
+	/**
+	 * inner class implements the postorder tree traversal Iterator
+	 * for serializing the BSTree object it must implement the Serializable interface
+	 */
 	private class BSTPostorderIterator implements Iterator<E>,Serializable
 	{
 		/**
 		 *The version number for BSTPostorderIterator class when it is serialized  
 		 */
 		private static final long serialVersionUID = 1L;
-		
-		//Not using a java.util.Stack cause of STACK OVERFLOW!
+
+		/**
+		 *create a double ended queue to traverse the Binary Search Tree.
+		 * Not using a java.util.Stack cause of STACK OVERFLOW!!!  
+		 */
 		Deque<BSTreeNode<E>> stack = new ArrayDeque<>();
+		/**
+		 *create a double ended queue to hold the nodes of the tree by postorder tree traversal order.
+		 *Deque supports element insertion and removal at both ends and no fixed limits on the number of elements they may contain.  
+		 */
 		Deque<BSTreeNode<E>> postorderStack = new ArrayDeque<>();
 	 
+		/**
+		 * BSTPostorderIterator constructor
+		 * @param root - root node
+		 */
 		public BSTPostorderIterator(BSTreeNode<E> root) 
 		{
 			BSTreeNode<E> lastVisitedNode = null;
@@ -394,7 +469,7 @@ public class BSTree<E> implements BSTreeADT
 			      root = topNode.getRight();
 			    } else 
 			    {
-			    	postorderStack.push(topNode);
+			    	postorderStack.push(topNode);//hold the node with double ended queue
 			    	lastVisitedNode = stack.poll();
 			    }
 			  }

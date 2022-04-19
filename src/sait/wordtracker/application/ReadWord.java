@@ -15,8 +15,16 @@ import sait.wordtracker.models.Word;
 import sait.wordtracker.utility.BSTree;
 import sait.wordtracker.utility.TreeException;
 
+/**
+ * check if the binary file (repository.ser) exists, and if so, restores the words tree.
+ * scan the txt file, insert the words in the appropriate nodes of the tree.
+ * output the all words to the screen or file.
+ */
 public class ReadWord 
 {
+	/**
+	 *create a new BSTree object that hold the all words 
+	 */
 	private static BSTree<Object> wordsBST = new BSTree<Object>();
 	
 	/** 
@@ -37,7 +45,7 @@ public class ReadWord
 	* de-serialization the Binary Search Tree from the stored file  
 	* @param fis - input binary file which stored the Binary Search Tree
 	 * @throws IOException - exceptions produced by failed I/O operations
-	 * @throws ClassNotFoundException - when the BSTree<Object> doesn't exist
+	 * @throws ClassNotFoundException - when the BSTree doesn't exist
 	*/
 	
 	public static void deserialBSTree(FileInputStream fis) throws IOException, ClassNotFoundException 
@@ -46,6 +54,15 @@ public class ReadWord
 		wordsBST = (BSTree<Object>) ois.readObject();
 		ois.close();
 	}
+	
+	/** 
+	* read file from command line 
+	* @param filepath - the input file path
+	* @param printype - print the output options
+	* @param outpath - the output file path and name
+	* @throws TreeException - when the tree is empty
+	* @throws IOException - produced by failed orinterrupted I/O operations
+	*/
 	
 	public static void readFile(String filepath,char printype,String outpath) throws TreeException, IOException 
 	{
@@ -86,6 +103,14 @@ public class ReadWord
 		printOut(printype,outpath);
 	}
 	
+	/** 
+	* read the input file and create the Word object, put the Word object into BSTree 
+	* @param words - an array hold an line of words
+	* @param file - the word that comes from (location)
+	* @param lineNumber - the word locates in the file
+	* @throws TreeException - when the tree is empty
+	*/
+	
 	public static void constructBST(String[] words, String file, int lineNumber) throws TreeException 
 	{
 		for(int i = 0; i < words.length; i++)
@@ -109,6 +134,13 @@ public class ReadWord
 			}
 		}
 	}
+	
+	/** 
+	* print the BSTree to the screen and file 
+	* @param printype - print the output options
+	* @param outpath - the output file path and name
+	* @throws IOException - produced by failed orinterrupted I/O operations
+	*/
 	
 	public static void printOut(char printype, String outpath) throws IOException
 	{
@@ -180,6 +212,11 @@ public class ReadWord
 		//close formatter
 		fmtFile.close();
 	}
+	
+	/** 
+	* output functionality test 
+	* just for test it's not meaningful in the program
+	*/
 	
 	public static void test()
 	{
